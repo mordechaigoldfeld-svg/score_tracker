@@ -28,15 +28,7 @@ export async function getById(_id) {
 
 
 
-export async function getAll() {
-    try{
-        const res = await scores.find().toArray()
-        return res
-    }catch(err){
-        console.log(err)
-    }
-    
-}
+
 
 
 
@@ -50,7 +42,7 @@ export async function getBestGame(game) {
         $sort: { points: -1 } 
       },
       { 
-        $limit: 3 
+        $limit: 10 
       },
         {
         $setWindowFields: {
@@ -81,8 +73,36 @@ export async function getBestGame(game) {
 
 
 
+export async function getBestAll() {
+    try {
+        const result = await scores.aggregate([
+            {
+                $sort:{points: -1}
+            },
+            {
+                $limit:10
+            },
+            {
+                $project:{
+                    _id:0,
+                    playerName:1,
+                    game:1,
+                    points:1,
+                    createdAt:1
+                }
+            }
+        ]).toArray()
+            return result
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+    
+}
 
 
+// console.log( await getBestAll())
 
 
 
