@@ -17,7 +17,7 @@ export async function getRank(req,res) {
 
 export async function getAllBetter(req,res) {
     try {
-        const response  = await getAllBetter()
+        const response  = await getBestAll()
         res.status(200).json(response)
     } catch (error) {
         console.log(error)
