@@ -39,6 +39,7 @@ export async function bestGame(game) {
     try {
         if(isValidGame){
             const rank = await getBestGame(game);
+            console.log(game)
             if(rank.length === 0){
                 return {status:404,message:"game not found"}
             }

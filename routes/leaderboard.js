@@ -7,4 +7,4 @@ const router  = express.Router()
 export default router
 
 
-router.get("/:id",getRank)
+router.get("/:game",getRank)

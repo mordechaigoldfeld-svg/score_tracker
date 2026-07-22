@@ -44,7 +44,7 @@ export async function getBestGame(game) {
     try{
       const result = await scores.aggregate([
       { 
-        $match: { "game": game.toLowerCase() }
+        $match: { "game": game }
       },
       { 
         $sort: { points: -1 } 
