@@ -1,5 +1,6 @@
-import { ObjectId } from "mongodb"
+import { Collection, ObjectId } from "mongodb"
 import { scores } from "../DB/db.js"
+import { log } from "node:console"
 
 
 
@@ -36,3 +37,36 @@ export async function getAll() {
     }
     
 }
+
+
+
+export async function getBestGame(game) {
+    try{
+        console.log("start",game)
+      const result = await scores.aggregate([
+      { 
+        $match: { "game": game } 
+      }
+    ]).toArray();
+
+    return result
+    console.log(result);
+
+    }catch(err){
+        console.log(err)
+    }
+    
+}
+
+
+
+
+console.log(await getBestGame("Tetris"))
+// console.log(await getAll());
+
+console.log("end");
+
+
+
+
+

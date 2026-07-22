@@ -24,3 +24,5 @@ const db = connection.db("score_tracker");
 
 
 export const scores = db.collection("scores");
+
+

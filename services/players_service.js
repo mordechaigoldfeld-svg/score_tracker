@@ -10,8 +10,8 @@ export async function getValidBody(body) {
                 if(isValidType(playerName,"string")){
                     if(isValidType(points,"number")){
                         const insertId  = await insert({
-                             playerName,
-                             game,
+                             playerName:playerName.toLowerCase(),
+                             game:game.toLowerCase(),
                              points,
                              createdAt:new Date()
                         }) 
