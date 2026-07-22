@@ -42,10 +42,31 @@ export async function getAll() {
 
 export async function getBestGame(game) {
     try{
-        console.log("start",game)
       const result = await scores.aggregate([
       { 
-        $match: { "game": game } 
+        $match: { "game": game.toLowerCase() }
+      },
+      { 
+        $sort: { points: -1 } 
+      },
+      { 
+        $limit: 3 
+      },
+        {
+        $setWindowFields: {
+        sortBy: { points: -1 },
+        output: {
+            rank: { $rank: {} } 
+      }
+    }
+  },
+      { 
+        $project: { 
+          _id: 0,
+          playerName: 1, 
+          points: 1 ,
+          rank:1
+        } 
       }
     ]).toArray();
 
@@ -61,10 +82,7 @@ export async function getBestGame(game) {
 
 
 
-console.log(await getBestGame("Tetris"))
-// console.log(await getAll());
 
-console.log("end");
 
 
 

@@ -1,4 +1,5 @@
-import { getById, insert } from "../repository/player_repo.js";
+import { log } from "console";
+import { getBestGame, getById, insert } from "../repository/player_repo.js";
 import { isValidBodyKeys,isValidGame,isValidType } from "../utils/validator.js";
 
 
@@ -34,3 +35,19 @@ export async function getValidBody(body) {
 
 // const data = {playerName:"moty",game:"Tetris",points:78}
 
+export async function bestGame(game) {
+    try {
+        if(isValidGame){
+            const rank = await getBestGame(game);
+            if(rank.length === 0){
+                return {status:404,message:"game not found"}
+            }
+            return {status:200,message:rank}
+        }
+        return {status:400,message:"invalid game"}
+        
+    } catch (error) {
+      console.log(err)  
+    }
+    
+}
