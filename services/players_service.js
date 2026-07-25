@@ -1,5 +1,5 @@
 import { log } from "console";
-import { getBestGame, getById, insert } from "../repository/player_repo.js";
+import { getBestGame, getById, getPlayer, insert } from "../repository/player_repo.js";
 import { isValidBodyKeys,isValidGame,isValidType } from "../utils/validator.js";
 
 
@@ -55,3 +55,16 @@ export async function bestGame(game) {
 
 
 
+export async function player(name) {
+    try{
+        const response = await getPlayer(name);
+        if (response.allScores.length === 0){
+            return {status:404,message:"player not found"}
+        }
+        return {status:200,message:response}
+
+    }catch(err){
+        console.log(err)
+    }
+    
+}

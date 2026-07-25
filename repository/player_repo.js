@@ -40,7 +40,7 @@ export async function getBestGame(game) {
       },
       { 
         $sort: { points: -1 } 
-      },
+      }, 
       { 
         $limit: 10 
       },
@@ -106,5 +106,43 @@ export async function getBestAll() {
 
 
 
+export async function getPlayer(name) {
+    try {
+            const result = await scores.aggregate([
+            {
+                $match:{playerName:name}
+            },
+
+            {
+                $facet:{
+
+                    allScores:[
+                        {
+                            $sort:{createdAt:-1}
+                        }
+                    ],
+                
+                    bestPerGame:[
+                    {
+                        $group:{
+                         _id: "$game",
+                         best:{$max:"$points"}
+                        }
+                    }      
+                ]
+             }
+            }
+            ]).toArray()
+            return result[0]
+
+        
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
 
 
+
+// const a = await getPlayer("aviel")
+// console.log(a.allScores.length)

@@ -1,4 +1,4 @@
-import { getValidBody } from "../services/players_service.js";
+import { getValidBody, player } from "../services/players_service.js";
 
 
 
@@ -16,3 +16,18 @@ export async function createScore(req,res) {
     }
     
 }
+
+
+export async function getPlayerScores(req,res) {
+    try {
+        const {name} = req.params
+        const response = await player(name)
+        res.status(response.status).json(response.message)
+        
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
+
+
