@@ -5,6 +5,7 @@ import { bodyExists } from "./middle/valid.js"
 import scoreRouter from "./routes/scores.js"
 import leaderboardsRouter from "./routes/leaderboard.js"
 import playerRouter from "./routes/player.js"
+import statsRouter from "./routes/stats.js"
 const app = express()
 
 const PORT  = process.env.PORT
@@ -17,6 +18,9 @@ app.use("/scores",bodyExists,scoreRouter)
 app.use("/leaderboards",leaderboardsRouter)
 
 app.use("/player",playerRouter)
+
+app.use("/stats",statsRouter)
+
 
 app.listen(PORT,()=>{
     console.log(`server running... on port:${PORT}`)

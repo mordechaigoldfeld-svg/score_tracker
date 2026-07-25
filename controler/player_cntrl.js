@@ -1,5 +1,5 @@
+import { stats } from "../repository/player_repo.js";
 import { getValidBody, player } from "../services/players_service.js";
-
 
 
 
@@ -30,4 +30,17 @@ export async function getPlayerScores(req,res) {
     
 }
 
+
+
+
+export async function getStats(req,res) {
+    try {
+        const response = await stats();
+        res.status(200).json(response)
+        
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
 

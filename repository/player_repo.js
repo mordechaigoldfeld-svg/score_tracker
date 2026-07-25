@@ -1,6 +1,6 @@
 import { Collection, ObjectId } from "mongodb"
 import { scores } from "../DB/db.js"
-import { log } from "node:console"
+import { count, log } from "node:console"
 
 
 
@@ -144,5 +144,47 @@ export async function getPlayer(name) {
 
 
 
-// const a = await getPlayer("aviel")
-// console.log(a.allScores.length)
+
+export async function stats() {
+    try{
+        const result = await scores.aggregate([
+            {
+                $facet:{
+                    best_player:[
+                       {$sort:{points:-1}},
+                        {$limit:1}
+                    ],
+                    total_scores:[{
+                        $count:"total"
+                    }],
+                    popular_game:[
+                        {$group:{
+                            _id:"$game",
+                            count:{$sum:1}
+                        }
+                    },
+                        {$sort:{count:-1}},
+                        {$limit:1}
+                    ],
+                    average:[
+                        {
+                        $group: {
+                        _id: null, 
+                        avgPoints: { $avg: "$points" }
+                        }
+                    }
+                    ]
+
+                }
+            }
+        ]).toArray()
+        return result[0]
+
+    }catch(err){
+        console.log(err)
+    }
+    
+}
+
+
+// console.log(await stats())
