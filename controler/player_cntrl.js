@@ -1,7 +1,5 @@
-import { stats } from "../repository/player_repo.js";
+import { getGamesNames, stats } from "../repository/player_repo.js";
 import { getValidBody, player } from "../services/players_service.js";
-
-
 
 
 
@@ -44,3 +42,15 @@ export async function getStats(req,res) {
     
 }
 
+
+
+export async function getName(req,res) {
+    try{
+        const response = await getGamesNames();
+        res.status(200).json({all_games:response})
+
+    }catch(err){
+        console.log(err)
+    }
+    
+}

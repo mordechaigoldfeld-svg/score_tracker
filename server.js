@@ -6,6 +6,8 @@ import scoreRouter from "./routes/scores.js"
 import leaderboardsRouter from "./routes/leaderboard.js"
 import playerRouter from "./routes/player.js"
 import statsRouter from "./routes/stats.js"
+import gameRouter from "./routes/game.js"
+
 const app = express()
 
 const PORT  = process.env.PORT
@@ -20,6 +22,8 @@ app.use("/leaderboards",leaderboardsRouter)
 app.use("/player",playerRouter)
 
 app.use("/stats",statsRouter)
+
+app.use("/games",gameRouter)
 
 
 app.listen(PORT,()=>{

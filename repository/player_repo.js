@@ -188,3 +188,15 @@ export async function stats() {
 
 
 // console.log(await stats())
+
+
+export async function getGamesNames() {
+    try{
+        const result = await scores.distinct("game")
+        return result
+    }catch(err){
+        console.log(err)
+    }
+    
+}
+
